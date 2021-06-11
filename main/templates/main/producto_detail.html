@@ -35,13 +35,14 @@
       <li><a href="{% url 'product-list' %}">Ver Lista de Productos</a></li>
       <li><a href="{% url 'home' %}">Inicio</a></li>
     </ul>
-    <div class="block">
-      <a href="{% url 'add-to-cart' product_pk=object.pk %}" class='button is-primary'>
-        Añadir al carrito
-      </a>
-      <a href="{% url 'pedido-detail' %}" class='button'>
-        Ver carrito
-      </a> 
   </div>
+  <div class="block">
+    <a href="{% if user.is_authenticated %} {% url 'add-to-cart' product_pk=object.pk %} {% else %} {% url 'login' %} {% endif %}" class='button {% if user.is_authenticated %} is-primary {% else %} is-danger {% endif %} '>
+      Añadir al carrito
+    </a>
+    <a href="{% if user.is_authenticated %} {% url 'pedido-detail' %} {% else %} {% endif %}" class='button {% if user.is_authenticated %} is-primary {% else %} is-danger {% endif %}'>
+      Ver carrito
+    </a>
+</div>
   </body>
 </html>

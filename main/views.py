@@ -151,7 +151,10 @@ class PedidoDetailView(DetailView):
         user_profile = Profile.objects.get(user=self.request.user)
         cliente = Cliente.objects.get(user_profile=user_profile)
         # Obtén/Crea un/el pedido en proceso (EP) del usuario
-        pedido  = Pedido.objects.get(cliente=cliente, estado='EP')
+        #pedido  = Pedido.objects.get(cliente=cliente, estado='EP')
+        #return pedido
+        pedido, existe= Pedido.objects.get_or_create(cliente=cliente, estado='EP')
+        pedido.save()
         return pedido
     def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
